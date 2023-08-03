@@ -1,0 +1,84 @@
+l = list(map(int, input().split(",")))
+for num in l:
+    l2 = list()
+    temp = str(abs(num))
+    #divisiblity rule for 2 
+    k = int(temp[-1])
+    if k & 1 == 0:
+        l2.append(2) 
+
+    # divisibility rule for 3 and 9
+    temp2 = temp
+    while len(temp2) > 1:
+        s = 0
+        for ele in temp2:            
+            s += int(ele)
+        temp2 = str(s)
+    # for 3 
+    if temp2 == '0' or temp2 == '3' or temp2 == '6' or temp2 == '9':
+        l2.append(3)
+
+    # for 9
+    if temp2 == '0' or temp2 == '9':
+        l2.append(9)
+
+    #divisibilty rule for 4 
+    if len(temp) == 1:
+        if temp == '0' or temp == '4' or temp == '8':
+            l2.append(4)
+    else:
+        tens = int(temp[-2])
+        ones = int(temp[-1])
+        if tens == 0 or tens == 2 or tens == 4 or tens == 6 or tens == 8:
+            if ones == 0 or ones == 4 or ones == 8:
+                l2.append(4)
+        else:
+            if ones == 2 or ones == 6:
+                l2.append(4)
+    
+    #divisibilty rule for 5 
+    k = int(temp[-1])
+    if k == 0 or k == 5:
+        l2.append(5)
+    
+    #divisibility rule for 6
+    if 2 in l2 and 3 in l2:
+        l2.append(6)
+    
+    #divisibility rule for 7 
+    temp2 = temp 
+    while len(temp2) > 2:
+        k = int(temp2[-1])
+        k2 = int(temp2[:-1])
+        k2 -= 2*k  
+        temp2 = str(k2)
+    temp2= int(temp2)
+    while temp2 > 0:
+        temp2 -= 7 
+    if temp2 == 0:
+        l2.append(7)
+
+    
+
+    # divisibility rule for 8 
+    temp2 = temp 
+    while len(temp2) > 1:
+        temp3 = int(temp2[:-1])
+        temp4 = int(temp2[-1])
+        temp5 = temp3 * 2  + temp4 
+        temp2 = str(temp5)
+    if temp2 == '0' or temp2 == '8':
+        l2.append(8)
+
+    #final output
+    if len(l2) == 0:
+        print(str(num)+": is not divisible")
+        continue
+    print(str(num)+": is divisible by ",end='')
+    l2.sort()
+    for i in range(len(l2)):
+        if i == len(l2)-1:
+            print(l2[i])
+        else:
+            print(str(l2[i])+',',end='')
+    
